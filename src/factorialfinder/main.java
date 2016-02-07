@@ -50,6 +50,8 @@ public class main {
                 }
                 if (num > 70) {
                     f.jLabel3.setText("Math Error");
+                } else if (num == 0) {
+                    f.jLabel3.setText("1");
                 } else {
                     for (int i = 1; i < num; i++) {
                         if (!(result > 0)) {
