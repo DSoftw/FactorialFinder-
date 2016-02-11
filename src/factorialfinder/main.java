@@ -35,41 +35,48 @@ public class main {
     }
 
     void findFactorial(final String text) {
+        if (!"".equals(text)) {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
 
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                double result = 0;
-                double num = 0;
-                try {
-                    num = Double.parseDouble(text);
-                    System.out.println(num);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Ingrese un valor numérico", "", 0);
-                    f.jLabel3.setText("");
-                }
-                if (num > 70) {
-                    f.jLabel3.setText("Math Error");
-                } else if (num == 0) {
-                    f.jLabel3.setText("1");
-                } else {
-                    for (int i = 1; i < num; i++) {
-                        if (!(result > 0)) {
-                            result = i * (i + 1);
-                        } else {
-                            result = result * (i + 1);
-                        }
+                    double result = 0;
+                    int num = 0;
+                    try {
+                        num = Integer.parseInt(text);
+
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Por favor ingrese un numero entero", "Input error", JOptionPane.ERROR_MESSAGE);
+                        f.jLabel3.setText("");
                     }
-                    String r = result + "";
-                    r = r.replace("E", " x10^");
-                    r = r.replace(".0", "");
-                    f.jLabel3.setText(r);
+
+                    if (num > 70) {
+                        f.jLabel3.setText("Math Error");
+                    } else if (num == 0 || num == 1) {
+                        f.jLabel3.setText("1");
+                    } else {
+                        for (int i = 1; i < num; i++) {
+                            if (!(result > 0)) {
+                                result = i * (i + 1);
+                            } else {
+                                result = result * (i + 1);
+                            }
+                        }
+                        String r = result + "";
+                        r = r.replace("E", " x10^");
+                        if(r.endsWith(".0")){
+                            r = r.replace(".0", "");
+                        }
+                        f.jLabel3.setText(r);
+                    }
+
                 }
 
-            }
-
-        });
-        t.start();
+            });
+            t.start();
+        }else{
+            JOptionPane.showMessageDialog(null, "No se ha ingresado ningún numero", "Input error", JOptionPane.ERROR_MESSAGE);
+        }
 
     }
 
